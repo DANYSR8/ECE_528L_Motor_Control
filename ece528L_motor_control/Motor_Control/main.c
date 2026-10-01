@@ -81,6 +81,8 @@ void SysTick_Handler(void)
 void Bumper_Switches_Handler(uint8_t bumper_switch_state)
 {
     printf("Collision Detected! Bumper Switch State: 0x%02X\n", bumper_switch_state);
+    P8->OUT |= 0X80;
+
 }
 
 /**
@@ -218,7 +220,7 @@ int main(void)
 
     while(1)
     {
-//        // Rotate to 0
+        // Rotate to 0
 //        Timer_A2_Update_Duty_Cycle_1(1700);
 //        Timer_A2_Update_Duty_Cycle_2(1700);
 //        LED2_Output(RGB_LED_RED);
