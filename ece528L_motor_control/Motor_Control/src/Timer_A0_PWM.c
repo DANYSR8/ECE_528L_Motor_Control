@@ -25,10 +25,14 @@ void Timer_A0_PWM_Init(uint16_t period_constant, uint16_t duty_cycle_1, uint16_t
     // by setting Bits 6 and 7 of the SEL0 register for P2
     // and clearing Bits 6 and 7 of the SEL1 register for P2
 
+    P2->SEL0 |= 0xC0 ;   // setting bits using masks 1100 0000 - DSR
+    P2->SEL1 &= ~0xC0 ;  // clearing bits using masks 1100 0000 - DSR
 
 
     // Configure pins P2.6 and P2.7 as output GPIO pins to drive the PWM signals
     // Set Bits 6 and 7 of the DIR register for P2
+
+    P2->DIR |= 0xC0 ;  // setting bits using masks 1100 0000 - DSR
 
 
     // Set the Timer A0 Capture/Compare register to the specified period_constant
@@ -37,31 +41,41 @@ void Timer_A0_PWM_Init(uint16_t period_constant, uint16_t duty_cycle_1, uint16_t
     // In this case: Period = (2*15000) / (12 MHz / 8) = 20 ms
     // Assign the value of period_constant to the CCR[0] register
 
+    TIMER_A0->CCR[0] = period_constant ;  // Setting Timer A0  Capture/Compare register to period contanstant varaible - DSR
 
     // Configure the Timer A0 expansion register to divide the clock frequency by 1
     // Clear all bits of the EX0 register
 
+    TIMER_A0->EX0 &= ~0xFF; // Clear all bits of the EX0 register - DSR
 
     // Configure the output mode as Toggle / Reset for CCR[3]
     // Set the bits of the OUTMOD field of the CCTL[3] register to 010b
+
+    TIMER_A0->CCTL[3] |= 0x0040; // Setting CCTL Register to value of OUTMOD = 010b (Toggle/Reset), bits 7-5 -DSR
 
 
     // Assign the value of duty_cycle_1 to the CCR[3] register
     // Duty Cycle %: duty_cycle_1 / period_constant
 
+    TIMER_A0->CCR[3] = duty_cycle_1; // Assigning value of duty_cycle_1 to the CCR[3] register - DSR
+
 
     // Configure the output mode as Toggle / Reset for CCR[4]
     // Set the bits of the OUTMOD field of the CCTL[4] register to 010b
 
+    TIMER_A0->CCTL[4] |=  0x0040 ; // Setting CCTL Register to value of OUTMOD = 010b (Toggle/Reset), bits 7-5 -DSR-DSR
 
     // Assign the value of duty_cycle_1 to the CCR[4] register
     // Duty Cycle %: duty_cycle_2 / period_constant
 
+    TIMER_A0->CCR[4] = duty_cycle_2; // Assigning value of duty_cycle_2 to the CCR[4] register - DSR
 
     // Modify the following bits in the CTL register
     // Select SMCLK = 12 MHz as timer clock source
     // Set ID = 3 (Divide timer clock by 8)
     // Set MC = 3 (Up/Down Mode)
+
+    TIMER_A0->CTL = 0x0270 ; // See techical mannual to see how values where selected - DSR
 
 }
 
