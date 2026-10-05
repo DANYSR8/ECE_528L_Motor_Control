@@ -25,7 +25,22 @@
 
 /**
  * @brief
+ ***
+ * This function initializes Timer A0 to generate two PWM signals on P2.6 and P2.7.
+ * It first checks to see if either duty cycle value is greater than or equal to the period constant, the
+ * function exits immediately if that is the case. Otherwise, it configures
+ * P2.6 and P2.7 to use the peripheral function mode by setting Bits 6 and 7 of the
+ * SEL0 register and clearing Bits 6 and 7 of the SEL1 register. The pins are also
+ * configured as outputs by setting Bits 6 and 7 of the DIR register. The function
+ * then assigns the period constant to the CCR[0] register and clears all of the bits
+ * in the EX0 register. The OUTMOD fields of the CCTL[3] and CCTL[4] registers are
+ * set to "010" to select the Toggle/Reset output mode, and the duty cycle values are
+ * assigned to CCR[3] and CCR[4]. Finally, it modifies the CTL register so that
+ * Timer A0 uses SMCLK (12 MHz) as the clock source, divides the timer clock by 8
+ * (ID = 3), and enables Up/Down mode (MC = 3).
  *
+ *
+
  * @param period_constant
  *
  * @param duty_cycle_1

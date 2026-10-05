@@ -59,6 +59,15 @@ void (*Bumper_Task)(uint8_t bumper_switch_state);
 /**
  * @brief
  *
+ * This function initializes the bumper switches by configuring P4.7, P4.6, P4.5,
+ * P4.3, P4.2, and P4.0 as input GPIO pins with pull-up resistors enabled. The
+ * output bits are set high to select pull-up instead of pull-down. The pins are
+ * also configured to trigger interrupts on a falling edge by setting the
+ * corresponding bits in the IES register. The function then clears any pending
+ * flags in the IFG register and sets the corresponding bits in the IE register to
+ * enable the interrupts. Finally, it sets the interrupt priority to 0 and enables
+ * Interrupt Request (IRQ) 38 by setting Bit 6 of the ISER1 register.
+ *
  * @param task A pointer to the user-defined function that will be called on a falling edge event.
  *
  * @return None

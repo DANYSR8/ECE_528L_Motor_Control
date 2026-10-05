@@ -21,6 +21,14 @@
 /**
  * @brief
  *
+ * This function initializes the motors by configuring P5.4 and P5.5 as output GPIO
+ * pins. It clears Bits 4 and 5 of the SEL0 and SEL1 registers and sets Bits 4 and
+ * 5 of the DIR register. The outputs of P5.4 and P5.5 are then initialized to zero
+ * by clearing Bits 4 and 5 of the OUT register. The function also configures P3.6
+ * and P3.7 as output GPIO pins by clearing Bits 6 and 7 of the SEL0 and SEL1
+ * registers and setting Bits 6 and 7 of the DIR register. The outputs of P3.6 and
+ * P3.7 are then initialized to zero by clearing Bits 6 and 7 of the OUT register.
+ *
  * @param None
  *
  * @return None
@@ -58,6 +66,10 @@ void Motor_Backward(uint16_t left_duty_cycle, uint16_t right_duty_cycle);
 /**
  * @brief
  *
+ *Configure the left motor to move in a backward direction by setting Bit 4 of the OUT register for P5 (Bit Mask 0001 0000)
+ *Configure the right motor to move in a forward direction by clearing Bit 5 of the OUT register for P5 (Bit Mask 0010 0000)
+ *Updating the duty cycle , and Enabling the motors by setting Bits 6 and 7 of the OUT register for P3
+ *
  * @param left_duty_cycle
  *
  * @param right_duty_cycle
@@ -68,6 +80,10 @@ void Motor_Left(uint16_t left_duty_cycle, uint16_t right_duty_cycle);
 
 /**
  * @brief
+ *
+ *Configure the left motor to move in a foward direction by clearing Bit 4 of the OUT register for P5 (Bit Mask 0001 0000)
+ *Configure the right motor to move in a backward direction by setting Bit 5 of the OUT register for P5 (Bit Mask 0010 0000)
+ * Updateing the duty cycle , and Enabling the motors by setting Bits 6 and 7 of the OUT register for P3
  *
  * @param left_duty_cycle
  *
