@@ -146,7 +146,12 @@ void Drive_Pattern_1()
 
 /**
  * @brief
- *
+ * a collision is detected, the motors are first stopped for two 
+ * seconds. The robot then backs up for two seconds at a 30% duty 
+ * cycle and stops for one second. Next, it turns right for four 
+ * seconds at a 10% duty cycle and stops again for two seconds. 
+ * Finally, the collision_detected flag is cleared to 0 so the 
+ * robot is ready for the next collision
  * @param None
  *
  * @return None
