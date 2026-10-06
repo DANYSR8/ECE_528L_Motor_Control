@@ -458,7 +458,7 @@ Having all these functions implemented, to test out the functionality, we set th
 ---
 ### Known Issues or Limitations: 
 
-During configuration of Timer A0, I initially set the CCTL\[3] and CCTL\[4] registers to a value of 2, reading the instruction to set OUTMOD to 010b as the value for the whole register. This was incorrect: 010b is the value for the OUTMOD field only, and that field sits in bits 7–5 of the 16-bit CCTL register. Writing 2 put the bit pattern in bits 2–0 instead, which set the COV flag and left OUTMOD at 000, so no PWM signal was produced on P2.6 and P2.7. Shifting the field value into its correct position (2 << 5 = 0x0040) set the output mode to Toggle/Reset as intended. I also found that the CTL register value of 0x0270 selected a clock divider of 2 rather than 8, and corrected it to 0x02F0 to get the specified 20 ms PWM period. 
+During configuration of Timer A0, I initially set the CCTL\[3] and CCTL\[4] registers to a value of 2, reading the instruction to set OUTMOD to 010b as the value for the whole register. This was incorrect: 010b is the value for the OUTMOD field only, and that field sits in bits 7–5 of the 16-bit CCTL register. Writing 2 put the bit pattern in bits 2–0 instead, which set the COV flag and left OUTMOD at 000, so no PWM signal was produced on P2.6 and P2.7. This was corrected by inputing a value of 0x0040. 
 
 
 
